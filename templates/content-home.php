@@ -34,10 +34,8 @@
 		<p>awcodex is the right person to realize your site</p>
 	</div>
 </div>
-
-
 <div class="pool-header col-sm-12">
-	<h1 class="text-center">Our Work</h1>
+	<h1 class="text-center">Our Service</h1>
 </div>
 <div class="row">
 	<div class="col-sm-6 pull-right">
@@ -81,7 +79,7 @@
 	<div class="col-sm-6">
 		<div class="clearfix">
 			<h4 class="box-title">Website Maintenace</h4>
-			<p>helps you to keep the website you have to keep it functioning properly.
+			<p>helps manage your website to keep it functioning properly.
 			</p>
 			<p>
 			contains updates, update data, keeping the backend system, cPanel, VPS, checking trouble on the admin system and fix it until all the work normally.</p>
@@ -94,7 +92,7 @@
 	<h1 class="text-center">Portfolio</h1>
 </div>
 <div class="col-sm-8 col-sm-offset-2">
-	<p class="text-center">here are some projects that have been completed by aw codex <br /></p>
+	<p class="text-center">here are some projects that have been completed by Aw codex <br /></p>
 </div>
 	<div class="clearfix"></div>
 <div class="clearfix">
