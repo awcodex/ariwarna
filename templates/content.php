@@ -1,3 +1,22 @@
+<?php if(is_tax('jenis')){?>
+<article <?php post_class(array('class' => 'col-sm-6')); ?>>
+  <div class="<?php echo (++$j % 2 == 0) ? 'bgputih' : 'bgabub'; ?>"> 
+	  <div class="entry-summary">
+			<div class="clearfix">
+				<div class="col-xs-12"> 
+					<a href="<?php the_permalink();?>" title="<?php the_title();?>" rel="bookmark">
+<?php if ( has_post_thumbnail() ) {?>
+   <?php the_post_thumbnail('medium', array('class' => 'img-responsive img-center'));?>
+<?php } else { ?>
+						<?php set_first();?> 
+<?php }?>
+					</a>
+				</div> 
+				</div>
+			</div> 
+	</div> 
+</article>
+<?php } else {?>
 <article <?php post_class(); ?>>
   <div class="<?php echo (++$j % 2 == 0) ? 'bgputih' : 'bgabub'; ?>">
 	  <header>
@@ -7,7 +26,7 @@
 	  <div class="entry-summary">
 			<div class="row">
 				<div class="col-xs-12"> 
-					<a href="<?php the_title();?>" title="<?php the_title();?>" rel="bookmark">
+					<a href="<?php the_permalink();?>" title="<?php the_title();?>" rel="bookmark">
 						<?php set_first();?> 
 					</a>
 				</div>
@@ -24,3 +43,4 @@
 		</div>
 	</div> 
 </article>
+<?php }?>

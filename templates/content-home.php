@@ -113,7 +113,7 @@
 				<div class="zwing" style="display:none;">  
 				  <div class="row innerpop">
 					<?php the_post_thumbnail('medium', array('class' => 'img-responsive img-center')); ?>
-					<h3 class="text-center"><a class="btn-block" href="<?php the_title();?>"><?php the_title();?></a></h3>
+					<h3 class="text-center"><a class="btn-block" href="<?php the_permalink(); ?>"><?php the_title();?></a></h3>
 				  </div> 
 				</div>
 				<div class="pimager">

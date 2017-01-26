@@ -1,16 +1,17 @@
+ 
 <section class="filter-section">
     <div class="clearfix">
         <div class="row">
             <div class="col-sm-12 col-xs-12"> 
                 <div class="filter-container isotopeFilters">
 					<?php $film_genres = get_terms('jenis'); ?>
-                    <ul class="list-inline filter">
+                    <ul id="portMenu" class="list-inline filters"> 
 						<li class="active">
 							<a data-toggle="tab" data-filter="*">All<span>/</span></a>
 						</li>
 						<?php foreach($film_genres as $film_genre) { ?>
 							<li>
-								<a data-filter=".<?php echo $film_genre->slug ?>" data-toggle="tab"><?php echo $film_genre->name ?><span>/</span></a>
+								<a href="javascript:void(0);" data-filter="<?php echo $film_genre->slug ?>"><?php echo $film_genre->name ?><span>/</span></a>
 							</li>
 						<?php } ?>
 					</ul> 
@@ -20,16 +21,14 @@
         </div>
     </div>
 </section>
-
 <section class="portfolio-section port-col">
-    <div class="clearfix"> 
-		<div class="isotopeContainer">
-			<?php foreach($film_genres as $film_genre) { ?>
-				<div class="tab-pane" id="<?php echo $film_genre->slug ?>">
-					<?php 	
+	<div id="container" class="isotope tab-pane">
+			<?php foreach($film_genres as $film_genre) { ?> 
+				<?php 	
 					$args = array(
 						'post_type' => 'portfolio',
-						'posts_per_page' -1,
+						'posts_per_page' => -1,
+						'paged' => $paged,
 						'orderby' => 'RAND',
 						'order' => 'DESC',
 						'tax_query' => array(
@@ -40,12 +39,12 @@
 							)
 						)
 					);
-					$films = new WP_Query( $args );		
+					$wp_query = new WP_Query( $args );		
 					?>
 			 
-					<?php if ( $films->have_posts() ) : ?> 
-						<?php while ( $films->have_posts() ) : $films->the_post(); ?>	
-						<div class="col-sm-3 isotopeSelector <?php echo $film_genre->slug ?>">
+					<?php if ( $wp_query->have_posts() ) : ?> 
+						<?php while ( $wp_query->have_posts() ) : $wp_query->the_post(); ?>	
+						<div class="grid-item col-sm-3 isotopeSelector" data-filter="<?php echo $film_genre->slug ?>">
 							<article class="">
 								<figure>
 									 <?php if ( has_post_thumbnail() ) { ?> 
@@ -70,9 +69,7 @@
 						</div>
 						<?php endwhile; ?>
 						<?php wp_reset_query() ?> 
-					<?php endif; ?>
-				</div>
-			<?php }  ?>
-		</div> 
-    </div>
+					<?php endif; ?> 
+			<?php }  ?> 
+	</div>
 </section>

@@ -31,15 +31,10 @@
 		<div class="forheight">
 		<?php if(wp_is_mobile()){?>
 		<?php get_template_part('templates/bg', 'slider');?>
-		<?php } else {?> 
-			<div class="homepage-hero-module">
-				<div class="video-container">
-					<div class="filter"></div>
-					<video autoplay loop class="fillWidth">
+		<?php } else {?>  
+					<video autoplay loop class="aw-vibanner">
 						<source src="<?php bloginfo('template_url');?>/assets/img/vid/run.mp4" type="video/mp4" />  
-					</video> 
-				</div>
-			</div>
+					</video>  
 		<?php }?>
 		</div>
 	<?php } else{?>
@@ -61,14 +56,18 @@
 					echo roots_title();
 				}?>
 			</h1>
-		</div>
-	<?php }?>
+		</div> 
+	<?php }?> 
   <div class="wrap container" role="document">
     <div class="content row"> 
+	<?php if(!is_singular()&&!is_page()){?>
       <main class="main <?php echo roots_main_class(); ?> the-equal" role="main">
-	<!--<div class="text-center">
+	<?php } else {?> 
+      <main class="main <?php echo roots_main_class(); ?> the-singwrap" role="main">
+	<?php }?>
+	<!--<div class="text-center"> 
 	  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
- ariwarna.net 
+	  ariwarna.net  
 		<ins class="adsbygoogle"
 			 style="display:block"
 			 data-ad-client="ca-pub-3050802018930479"
@@ -78,6 +77,13 @@
 		(adsbygoogle = window.adsbygoogle || []).push({});
 		</script>
 	  </div>--> 
+		<?php
+			if ( function_exists('yoast_breadcrumb')&&!is_front_page() ) {
+			yoast_breadcrumb('
+			<p id="breadcrumbs">','</p> 
+			');
+			}
+		?>
 		<?php if(!is_post_type_archive()&&is_home()){?>
 			<div class="alert alert-success alert-dismissible fade in" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -91,7 +97,11 @@
 		<?php }?>
       </main><!-- /.main -->
       <?php if (roots_display_sidebar()) : ?>
+	<?php if(!is_singular()&&!is_page()){?>
         <aside class="sidebar <?php echo roots_sidebar_class(); ?> the-equal" role="complementary">
+	<?php } else {?> 
+        <aside class="sidebar <?php echo roots_sidebar_class(); ?> the-sider" role="complementary">
+	<?php }?>
           <?php include roots_sidebar_path(); ?>
         </aside><!-- /.sidebar -->
       <?php endif; ?>
@@ -99,6 +109,8 @@
   </div><!-- /.wrap -->
 
   <?php get_template_part('templates/footer'); ?>
-
+	<?php if(is_singular()){?>
+	<script id="dsq-count-scr" src="//ariwarna.disqus.com/count.js" async></script>
+	<?php }?>
 </body>
 </html>
