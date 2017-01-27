@@ -14,50 +14,29 @@ function roots_widgets_init() {
   ));
 
   register_sidebar(array(
-    'name'          => __('Footer', 'roots'),
-    'id'            => 'sidebar-footer',
+    'name'          => __('Footer1', 'roots'),
+    'id'            => 'sidebar-footer1',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>',
   ));
-
   register_sidebar(array(
-    'name'          => __('Footer Bottom 1', 'roots'),
-    'id'            => 'sidebar-footerb1',
+    'name'          => __('Footer2', 'roots'),
+    'id'            => 'sidebar-footer2',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>',
   ));
-
   register_sidebar(array(
-    'name'          => __('Footer Bottom 2', 'roots'),
-    'id'            => 'sidebar-footerb2',
+    'name'          => __('search Anggota', 'roots'),
+    'id'            => 'cari-anggota',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>',
   ));
-
-  register_sidebar(array(
-    'name'          => __('Footer Bottom 3', 'roots'),
-    'id'            => 'sidebar-footerb3',
-    'before_widget' => '<section class="widget %1$s %2$s">',
-    'after_widget'  => '</section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));
-
-  register_sidebar(array(
-    'name'          => __('Footer Bottom 4', 'roots'),
-    'id'            => 'sidebar-footerb4',
-    'before_widget' => '<section class="widget %1$s %2$s">',
-    'after_widget'  => '</section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));
- 
 
   // Widgets
   register_widget('Roots_Vcard_Widget');

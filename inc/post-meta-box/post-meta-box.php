@@ -8,10 +8,10 @@
 
 function materia_enqueue_scripts() {
 	// Select2
-	$mtb_url = get_bloginfo('template_directory').'/inc/post-meta-box/';
-	wp_register_style ( 'select2', $mtb_url.'js/select2/select2.css', '', '3.2' );
-	wp_register_script ( 'select2', $mtb_url.'js/select2/select2.min.js', array( 'jquery' ), '3.2', true );
-	wp_register_script ( 'select2-conf', $mtb_url.'js/select2/select2.conf.js', array( 'jquery' ), '1.0', true );
+	$warna_url = get_bloginfo('template_directory').'/inc/post-meta-box/';
+	wp_register_style ( 'select2', $warna_url.'js/select2/select2.css', '', '3.2' );
+	wp_register_script ( 'select2', $warna_url.'js/select2/select2.min.js', array( 'jquery' ), '3.2', true );
+	wp_register_script ( 'select2-conf', $warna_url.'js/select2/select2.conf.js', array( 'jquery' ), '1.0', true );
 	wp_enqueue_script( 'select2' );
 	wp_enqueue_script( 'select2-conf' );
 	wp_enqueue_style( 'select2' );
@@ -19,8 +19,10 @@ function materia_enqueue_scripts() {
 	wp_enqueue_script( 'media-upload' );
 	wp_enqueue_script( 'thickbox' );
 	wp_enqueue_style( 'thickbox' ); 
-	wp_register_script( 'meta-image', $mtb_url.'js/meta-image.js', array( 'jquery', 'media-upload', 'thickbox' ) ); 
-	wp_enqueue_script( 'meta-image' ); 
+	wp_register_script( 'meta-image', $warna_url.'js/meta-image.js', array( 'jquery', 'media-upload', 'thickbox' ) );
+	wp_register_script( 'meta-file', $warna_url.'js/meta-file.js', array( 'jquery', 'media-upload', 'thickbox' ) );
+	wp_enqueue_script( 'meta-image' );
+	wp_enqueue_script( 'meta-file' ); 
 }
 add_action( 'admin_init', 'materia_enqueue_scripts' );
 
@@ -28,7 +30,7 @@ class PostMetaBox {
 	
 	protected $meta_box;
 	protected $id;
-	static $prefix = 'mtb_';
+	static $prefix = 'warna_';
 
 	// create meta box based on given data
 	public function __construct($id, $opts) {

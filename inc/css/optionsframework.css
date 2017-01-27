@@ -1,72 +1,33 @@
 /* Options Framework Admin Styles */
-#side-sortables .regular-text {
-  width: 100%;
-}
-.span-4{
-	width: 20%;
-	min-width: 100px;
-	float: left;
-	margin: 0;
-}
-.span-8{
-	width: 70%;
-	min-width: 220px;
-	float: left;
-	margin: 0;
-}
-h2 .nav-tab {
-    display: block;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 24px;
-    margin: 0 2px 0 0;
-    padding: 6px 10px;
-}
-.nav-tab-wrapper.menuk {
-	border: medium none !important;
-	margin-top: 12px !important;
-	padding: 0 !important;
-}
-.nav-tab {
-    background: none repeat scroll 0 0 #007B00;
-    border-color: #EDEDED;
-    color: #FFFFFF;
-	border-radius: 4px;
-	box-shadow: none;
-}
-.nav-tab-active, .nav-tab-active:hover, .nav-tab:hover {
-    background: none repeat scroll 0 0 #3A3A3A;
-    border-color: #EDEDED;
-    color: #FFFFFF;
+
+.updated {
+	max-width:764px;
+	margin-bottom:0px !important;
 }
 #optionsframework {
-    max-width:840px;
-    background:#fff;
+	position:relative;
+	z-index: 0;
+	max-width:780px;
+	background:#fff;
 }
 #optionsframework h3 {
-    background-color: #3F3F3F;
-    border-bottom: 1px solid #DDDDDD;
-    border-radius: 4px 4px 0 0;
-    color: #FF9900;
-    cursor: default;
-    font-weight: bold !important;
-}
-.section h4{
-    background: url("../images/add.png") no-repeat scroll left center transparent;
-    color: #007B00;
-    margin: 2px 0 8px;
-    padding: 10px 10px 10px 33px;
-	border-top: 1px solid #ededed;
+	cursor: default;
 }
 #optionsframework p {
 	margin-bottom:0;
 	padding-bottom:10px;
+	line-height: 1.4em;
 }
 #optionsframework .section {
 	padding:10px 10px 0;
 }
 #optionsframework .group {
 	padding-bottom:40px;
+}
+#optionsframework .section .heading {
+	padding:10px 0px;
+	margin:0 0 15px;
+	border-bottom: 1px solid #dfdfdf;
 }
 #optionsframework .section .controls {
 	float: left;
@@ -81,14 +42,17 @@ h2 .nav-tab {
 	line-height:16px;
 	color: #777;
 }
-#optionsframework .controls input[type=text] {
-	width:100%;
-}
 #optionsframework .section-checkbox .controls {
 	width: 98%;
 }
 #optionsframework .section-checkbox .explain {
 	max-width:94%;
+}
+#optionsframework .of-input {
+	width:100%;
+	min-height: 31px;
+	color: #880000;
+	background: #ffffd6;
 }
 #optionsframework .controls select, #optionsframework .controls textarea {
 	margin-bottom:10px;
@@ -101,7 +65,8 @@ h2 .nav-tab {
 	margin-bottom: 5px;
 }
 #optionsframework input.checkbox, #optionsframework input.of-radio {
-	margin: 0 10px 5px 0;
+	width: 30px;
+	margin-top:2px;
 	float:left;
 	clear:both;
 }
@@ -135,25 +100,20 @@ h2 .nav-tab {
 }
 #optionsframework .of-background-properties {
 	clear:both;
-	margin-top: 18px;
+	margin-top: 18px;	
 }
-#optionsframework .controls .of-background-size{
-	width:100px;
-	margin-right:0;
-	float:left
-}
-#optionsframework .controls .of-background-repeat{
-	width:100px;
+#optionsframework .controls .of-background-repeat {
+	width:125px;
 	margin-right:5px;
 	float:left
 }
 #optionsframework .controls .of-background-position {
-	width:100px;
+	width:125px;
 	margin-right:5px;
 	float:left
 }
 #optionsframework .controls .of-background-attachment {
-	width:100px;
+	width:125px;
 	margin-right:5px;
 	float:left
 }
@@ -211,6 +171,17 @@ h2 .nav-tab {
 
 #optionsframework .controls input.upload {
 	width:80%;
+	height: 28px;
+	background: #ffffd6;
+}
+#optionsframework .controls input.upload_button {
+	float:right;
+	border-color:#BBBBBB;
+	cursor:pointer;
+}
+#optionsframework .controls input.upload_button:hover {
+	border-color:#666666;
+	color:#000;
 }
 #optionsframework .screenshot {
 	float:left;
@@ -220,7 +191,7 @@ h2 .nav-tab {
 	margin-top:3px;
 }
 #optionsframework .screenshot img {
-	background:#fafafa;
+	background:#FAFAFA;
 	border-color:#ccc #eee #eee #ccc;
 	border-style:solid;
 	border-width:1px;
@@ -249,20 +220,17 @@ h2 .nav-tab {
 	bottom: 0px;
 }
 #optionsframework .reset-button {
-    background: none repeat scroll 0 0 #FF0000;
-    border: medium none;
-    box-shadow: none;
-    color: #FFFFFF;
-    cursor: pointer;
-    float: left;
+	float:left;
+	cursor:pointer;
 }
 
 /* Bottom Section */
 
 #optionsframework-submit {
 	padding: 7px 10px;
-	border-top: 1px solid #ddd;
-	background-color: #f1f1f1;
+	border-top: 1px solid #ECECEC;
+	background-color: #F1F1F1;
+    background-image: -moz-linear-gradient(center top , #F9F9F9, #ECECEC);
 }
 #optionsframework .button-primary {
 	float:right;
@@ -273,4 +241,10 @@ h2 .nav-tab {
 }
 #optionsframework .section:after {
 	clear: both;
+}
+.section-info h4 {
+  border-bottom: 1px solid #880000 !important;
+  color: #880000;
+  text-align: center;
+  background: #ededed;
 }

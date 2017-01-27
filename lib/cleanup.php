@@ -157,7 +157,7 @@ function roots_caption($output, $attr, $content) {
 
   // Set up the attributes for the caption <figure>
   $attributes  = (!empty($attr['id']) ? ' id="' . esc_attr($attr['id']) . '"' : '' );
-  $attributes .= ' class="thumbnail wp-caption img-responsive' . esc_attr($attr['align']) . '"';
+  $attributes .= ' class="thumbnail wp-caption ' . esc_attr($attr['align']) . '"';
   $attributes .= ' style="width: ' . (esc_attr($attr['width']) + 10) . 'px"';
 
   $output  = '<figure' . $attributes .'>';
@@ -190,7 +190,7 @@ function roots_excerpt_length($length) {
 }
 
 function roots_excerpt_more($more) {
-  return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'roots') . '</a>';
+  return ' &hellip; <a href="' . get_permalink() . '">' . __('Moco Luwih Pepak', 'roots') . '</a>';
 }
 add_filter('excerpt_length', 'roots_excerpt_length');
 add_filter('excerpt_more', 'roots_excerpt_more');

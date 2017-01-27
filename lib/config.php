@@ -56,7 +56,9 @@ function roots_display_sidebar() {
     array(
       'is_404',
       'is_front_page',
-	   array( 'is_post_type_archive', array('portfolio') ),
+	  'is_search',
+	  array ('is_post_type_archive' , array ('usaha', 'event', 'gallery', 'anggota')),
+	  array ('is_tax' , array ('gender'))
     ),
     /**
      * Page template checks (via is_page_template())

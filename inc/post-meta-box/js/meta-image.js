@@ -52,7 +52,7 @@
 				frame.close();
 				selector.find('#upload_image').val(attachment.attributes.url);
 				if ( attachment.attributes.type == 'image' ) {
-					selector.find('.screenshot').empty().hide().append('<img width="175" src="' + attachment.attributes.url + '"><a class="remove-image">Remove</a>').slideDown('fast');
+					selector.find('.screenshot').empty().hide().append('<img width="400" src="' + attachment.attributes.url + '"><a class="remove-image">Remove</a>').slideDown('fast');
 				}
 				selector.find('.upload-button').unbind().addClass('remove-file').removeClass('upload-button').val(optionsframework_l10n.remove);
 				selector.find('.of-background-properties').slideDown();

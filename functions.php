@@ -3,24 +3,24 @@
  * Roots includes
  */
 $roots_includes = array(
-  '/lib/utils.php',           // Utility functions
-  '/lib/init.php',            // Initial theme setup and constants
-  '/lib/wrapper.php',         // Theme wrapper class
-  '/lib/sidebar.php',         // Sidebar class
-  '/lib/config.php',          // Configuration
-  '/lib/activation.php',      // Theme activation
-  '/lib/titles.php',          // Page titles
-  '/lib/cleanup.php',         // Cleanup
-  '/lib/nav.php',             // Custom nav modifications
-  '/lib/gallery.php',         // Custom [gallery] modifications
-  '/lib/comments.php',        // Custom comments modifications
-  '/lib/relative-urls.php',   // Root relative URLs
-  '/lib/widgets.php',         // Sidebars and widgets
-  '/lib/scripts.php',         // Scripts and stylesheets
-  '/lib/custom.php',          // Custom functions
-  '/inc/custom-post.php',
+	'/lib/utils.php',           // Utility functions
+	'/lib/init.php',            // Initial theme setup and constants
+	'/lib/wrapper.php',         // Theme wrapper class
+	'/lib/sidebar.php',         // Sidebar class
+	'/lib/config.php',          // Configuration
+	'/lib/activation.php',      // Theme activation
+	'/lib/titles.php',          // Page titles
+	'/lib/cleanup.php',         // Cleanup
+	'/lib/nav.php',             // Custom nav modifications
+	'/lib/gallery.php',         // Custom [gallery] modifications
+	'/lib/comments.php',        // Custom comments modifications
+	'/lib/relative-urls.php',   // Root relative URLs
+	'/lib/widgets.php',         // Sidebars and widgets
+	'/lib/scripts.php',         // Scripts and stylesheets
+	'/lib/custom.php',          // Custom functions
+	'/inc/custom-post.php',
 );
-
+flush_rewrite_rules( false );
 foreach($roots_includes as $file){
   if(!$filepath = locate_template($file)) {
     trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
@@ -29,7 +29,6 @@ foreach($roots_includes as $file){
   require_once $filepath;
 }
 unset($file, $filepath);
-
 define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/inc/' );
 require_once dirname( __FILE__ ) . '/inc/options-framework.php'; 
 add_action( 'optionsframework_custom_scripts', 'optionsframework_custom_scripts' );
@@ -51,8 +50,8 @@ jQuery(document).ready(function() {
 
 <?php
 } 
- show_admin_bar(false);
-function custom_excerpt($new_length = 20, $new_more = '...') {
+
+function custom_excerpt($new_length = 8, $new_more = '...') {
   add_filter('excerpt_length', function () use ($new_length) {
     return $new_length;
   }, 999);
@@ -65,99 +64,243 @@ function custom_excerpt($new_length = 20, $new_more = '...') {
   $output = '<p>' . $output . '</p>';
   echo $output;
 }
-function thesis_author_box() {
-	if (is_single()) {
-		?>
-		<div class="author_info clearfix">
-		<span class="author_photo col-sm-3"><?php echo get_avatar( get_the_author_id() , 96 ); ?></span>
-		<div class="col-sm-9">
-		<div class="row">
-		<h4>This post was written by...</h4>
-		<p><?php the_author_posts_link(); ?> &ndash; who has written <?php the_author_posts(); ?> posts on <a href="<?php bloginfo('home'); ?>"><?php bloginfo('name'); ?></a>.</p>
-		<p><?php the_author_description(); ?></p>
-		<p class="author_email"><a href="mailto:<?php the_author_email(); ?>" title="Send an Email to the Author of this Post">Contact the author</a></p>
-		</div>
-		</div>
-		</div>
-	<?php }
+add_image_size( 'gallery-size', 355, 216, array( 'center', 'top' ) ); 
+add_image_size( 'gallery-kotak', 355, 355, array( 'center', 'center' ) ); 
+add_image_size( 'def-panjang', 355, 466, array( 'center', 'top' ) ); 
+add_image_size( 'gal-archive', 300); 
+ 
+function myajax_submit() {
+// get the submitted parameters
+   $postID = $_POST['postID'];
+
+   $response = get_thumbnail_images(); 
+   $response = json_encode($response);
+
+// response output
+   header( "Content-Type: application/json" );
+   echo $response;
+
+// IMPORTANT: don't forget to "exit"
+exit; 
 }
-if(is_admin()){
+function roots_cpt_active_menu($menu) {
+  $post_type = get_post_type();
 
-  add_filter('image_send_to_editor', 'wrap_my_div', 10, 8);
+  switch($post_type) {
+    case 'gallery':
+      $menu = str_replace('active', '', $menu);
+      break;
+    case 'event':
+      $menu = str_replace('active', '', $menu);
+      $menu = str_replace('menu-event', 'menu-event active', $menu);
+      break;
+    case 'usaha':
+      $menu = str_replace('active', '', $menu);
+      $menu = str_replace('menu-bisnis', 'menu-bisnis active', $menu);
+      break;
+    case 'gallery':
+      $menu = str_replace('active', '', $menu);
+      $menu = str_replace('menu-gallery', 'menu-gallery active', $menu);
+      break;
+    case 'anggota':
+      $menu = str_replace('active', '', $menu);
+      $menu = str_replace('menu-anggota', 'menu-anggota active', $menu);
+      break;
+  } 
 
-  function wrap_my_div($html, $id, $caption, $title, $align, $url, $size, $alt){
-    return '<div class="image-content" id="mydiv-'.$id.'">'.$html.'</div>';
+  if (is_author()) {
+    $menu = str_replace('active', '', $menu);
   }
-}
-add_image_size( 'medium-size', 420, 250, array( 'center', 'center' ) ); // Hard crop left top
-add_image_size( 'blog-size', 420, 420, array( 'center', 'center' ) ); // Hard crop left top
-add_image_size( 'blog-biger', 626, 257, array( 'center', 'center' ) ); // Hard crop left top
-add_image_size( 'clients-size', 184, 69); // Hard crop left top
-add_filter( 'image_size_names_choose', 'my_custom_sizes' );
- 
-function my_custom_sizes( $sizes ) {
-    return array_merge( $sizes, array(
-        'medium-size' => __( 'Awmedium size' ),
-    ) );
-}
-function set_first(){
-	$size = 'blog-biger'; // whatever size you want
-	if ( has_post_thumbnail() ) {
-		the_post_thumbnail( $size, array('class' => 'img-responsive') );
-	} else {
-		$attachments = get_children( array(
-			'post_parent' => get_the_ID(),
-			'post_status' => 'inherit',
-			'post_type' => 'attachment',
-			'post_mime_type' => 'image',
-			'order' => 'ASC',
-			'orderby' => 'menu_order ID',
-			'numberposts' => 1)
-		);
-		foreach ( $attachments as $thumb_id => $attachment ) {
-			 $url = wp_get_attachment_image_url($thumb_id, $size);
-			
-		echo '<img class="img-responsive" src="' . $url . '" />';
-		}
-		 if(empty($attachments)){
-			 echo '<img class="img-responsive img-center" src="'.get_template_directory_uri().'/assets/img/default.svg">';
-		 }
-	} 
-}  
 
-function pagination($pages = '', $range = 4)
-{  
-     $showitems = ($range * 2)+1;  
- 
-     global $paged;
-     if(empty($paged)) $paged = 1;
- 
-     if($pages == '')
-     {
-         global $wp_query;
-         $pages = $wp_query->max_num_pages;
-         if(!$pages)
-         {
-             $pages = 1;
-         }
-     }   
- 
-     if(1 != $pages)
-     {
-         echo "<div class=\"pagination\"><span>Page ".$paged." of ".$pages."</span>";
-         if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo; First</a>";
-         if($paged > 1 && $showitems < $pages) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo; Previous</a>";
- 
-         for ($i=1; $i <= $pages; $i++)
-         {
-             if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
-             {
-                 echo ($paged == $i)? "<span class=\"current\">".$i."</span>":"<a href='".get_pagenum_link($i)."' class=\"inactive\">".$i."</a>";
-             }
-         }
- 
-         if ($paged < $pages && $showitems < $pages) echo "<a href=\"".get_pagenum_link($paged + 1)."\">Next &rsaquo;</a>";  
-         if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($pages)."'>Last &raquo;</a>";
-         echo "</div>\n";
-     }
+  return $menu;
 }
+add_filter('nav_menu_css_class', 'roots_cpt_active_menu', 400);
+
+/*Load more Content*/
+function more_post_ajax(){
+    $ppp = (isset($_POST["ppp"])) ? $_POST["ppp"] : 3;
+    $page = (isset($_POST['pageNumber'])) ? $_POST['pageNumber'] : 0;
+
+    header("Content-Type: text/html"); 
+    $args = array(
+       'suppress_filters' => true,
+        'post_type' => 'gallery',
+        'posts_per_page' => $ppp, 
+        'paged'    => $page,
+    ); 
+    $aw_gallerys = new WP_Query($args);
+
+    $out = '';
+
+    if ($aw_gallerys -> have_posts()) :  while ($aw_gallerys -> have_posts()) : $aw_gallerys -> the_post();
+        $out .= get_template_part('templates/ajax', 'gallery');
+
+    endwhile;
+    endif;
+    wp_reset_postdata();
+    die($out);
+}
+
+add_action('wp_ajax_nopriv_more_post_ajax', 'more_post_ajax');
+add_action('wp_ajax_more_post_ajax', 'more_post_ajax');
+
+/*ajaxpost*/
+function starter_scripts() {
+
+    wp_enqueue_script( 'includes', get_template_directory_uri() . '/assets/js/include.js', array('jquery'), '', true );
+    wp_localize_script( 'includes', 'site', array(
+                'theme_path' => get_template_directory_uri(),
+                'ajaxurl'    => admin_url('admin-ajax.php')
+            )
+    );
+}
+add_action( 'wp_enqueue_scripts', 'starter_scripts' );
+
+function my_load_ajax_content () {
+    $args = array( 'p' => $_POST['post_id'], 'post_type' => 'gallery' );
+    $post_query = new WP_Query( $args );
+    while( $post_query->have_posts() ) : $post_query->the_post(); ?>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div <?php post_class(); ?>>
+                <h2><span class="glyphicon glyphicon-picture"></span> <?php the_title(); ?></h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body entry-content">
+                <div class="row">      
+                  <div class="col-sm-12 modal-image-wrp">
+                    <?php
+                      if ( has_post_thumbnail() ) {
+                        the_post_thumbnail('full', array('class' => 'img-responsive img-center'));
+                      }
+                      else {
+                        echo '<img class="thumbdef img-responsive img-center" src="' . get_bloginfo( 'stylesheet_directory' ) . '/assets/img/def-kotak.jpg" />';
+                      }
+                    ?>  
+					<div class="clearfix">
+						<?php// the_content();?>
+					</div>
+                  </div>
+                  <div class="col-sm-12 goto-download">
+                    <?php  
+                      if ( has_post_thumbnail() ) {
+                      $feat_image_url = wp_get_attachment_url( get_post_thumbnail_id() );
+                      echo '<a class="btn btn-danger btn-block downimage" href="'.$feat_image_url.'" download><span class="glyphicon glyphicon-cloud-download"></span> Download</a>';
+					  
+						 if(wp_is_mobile()){ 
+							echo '<p>Share : <a href="whatsapp://send?text='.$feat_image_url.'"> WhatsApp</a></p>';
+						 } 
+                      } else {
+                        echo '<a class="btn btn-warning btn-block downimage" href="" download><span class="glyphicon glyphicon-remove-circle"></span>No File To Download</a>';
+                      }
+                    ?>
+                  </div>
+                </div>
+                <?php the_content(); ?>
+            </div> <!-- end .entry-content -->
+            <div class="modal-footer">
+              
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <?php       
+    endwhile;           
+    exit;
+}
+add_action ( 'wp_ajax_nopriv_load-content', 'my_load_ajax_content' );
+add_action ( 'wp_ajax_load-content', 'my_load_ajax_content' ); 
+/*anggota */
+ 
+ function awcodex_numeric_posts_nav() {
+
+	if( is_singular() )
+		return;
+
+	global $wp_query;
+
+	/** Stop execution if there's only 1 page */
+	if( $wp_query->max_num_pages <= 1 )
+		return;
+
+	$paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
+	$max   = intval( $wp_query->max_num_pages );
+
+	/**	Add current page to the array */
+	if ( $paged >= 1 )
+		$links[] = $paged;
+
+	/**	Add the pages around the current page to the array */
+	if ( $paged >= 3 ) {
+		$links[] = $paged - 1;
+		$links[] = $paged - 2;
+	}
+
+	if ( ( $paged + 2 ) <= $max ) {
+		$links[] = $paged + 2;
+		$links[] = $paged + 1;
+	}
+
+	echo '<div class="navigation"><ul>' . "\n";
+
+	/**	Previous Post Link */
+	if ( get_previous_posts_link() )
+		printf( '<li>%s</li>' . "\n", get_previous_posts_link() );
+
+	/**	Link to first page, plus ellipses if necessary */
+	if ( ! in_array( 1, $links ) ) {
+		$class = 1 == $paged ? ' class="active"' : '';
+
+		printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( 1 ) ), '1' );
+
+		if ( ! in_array( 2, $links ) )
+			echo '<li>…</li>';
+	}
+
+	/**	Link to current page, plus 2 pages in either direction if necessary */
+	sort( $links );
+	foreach ( (array) $links as $link ) {
+		$class = $paged == $link ? ' class="active"' : '';
+		printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $link ) ), $link );
+	}
+
+	/**	Link to last page, plus ellipses if necessary */
+	if ( ! in_array( $max, $links ) ) {
+		if ( ! in_array( $max - 1, $links ) )
+			echo '<li>…</li>' . "\n";
+
+		$class = $paged == $max ? ' class="active"' : '';
+		printf( '<li%s><a href="%s">%s</a></li>' . "\n", $class, esc_url( get_pagenum_link( $max ) ), $max );
+	}
+
+	/**	Next Post Link */
+	if ( get_next_posts_link() )
+		printf( '<li>%s</li>' . "\n", get_next_posts_link() );
+
+	echo '</ul></div>' . "\n";
+
+}
+
+
+function grab($url){ 
+     $data = curl_init(); 
+     curl_setopt($data, CURLOPT_RETURNTRANSFER, 1);
+     curl_setopt($data, CURLOPT_URL, $url); 
+     $hasil = curl_exec($data);
+     curl_close($data);
+     return $hasil;
+} 
+function searchfilter($query) {
+    if ($query->is_search && !is_admin() ) {
+        if(isset($_GET['post_type'])) {
+            $type = $_GET['post_type'];
+                if($type == 'anggota') {
+                    $query->set('post_type',array('anggota'));
+                }
+        }       
+    }
+return $query; 
+}
+add_filter('pre_get_posts','searchfilter');

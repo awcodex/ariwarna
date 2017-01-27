@@ -3,92 +3,239 @@
 
 require_once locate_template('/inc/post-meta-box/post-meta-box.php'); 
 require_once locate_template('/inc/post-meta.php');
-$slider = new JW_Post_Type('Clients', array('supports' => array('title', 'thumbnail')));
-$slider = new JW_Post_Type('Partnership', array('supports' => array('title', 'thumbnail')));
+//$laminating = new JW_Post_Type('Type Laminating', array('supports' => array('title', 'thumbnail', 'editor')));
 $slider = new JW_Post_Type('Slider', array('supports' => array('title', 'thumbnail')));
 add_post_meta_box( 'image_slider_show', array(
     'title' => _x( 'Slider', 'meta box', 'wa' ),
     'pages' => array( 'slider' ),
     'context' => 'normal', // 'normal', 'advanced', or 'side'
     'priority' => 'default', // 'default', 'high', 'core', 'default' or 'low'
-    'fields' => array( 
+    'fields' => array(
+		array(
+            'name' => _x( 'Slider Title', 'meta box', 'wa' ),
+            'id' => 'slider_title',
+            'default' => '',
+            'type' => 'text'
+        ),
 		array(
             'name' => _x( 'Slider Description', 'meta box', 'wa' ),
-            'id' => 'slider-image-desc',
+            'id' => 'slider_desc',
             'place-holder' => '',
             'type' => 'textarea'
         ) 
     )
 	
 	
-));
+)); 
+$anggota = new JW_Post_Type('Anggota', array('supports' => array('title', 'thumbnail', 'editor')));
 
-$hg_photo = new JW_Post_Type('Testimony', array('supports' => array('title', 'editor' , 'thumbnail' ))); 
-add_post_meta_box( 'Company', array(
-    'title' => _x( 'Company', 'meta box', 'wa' ),
-    'pages' => array( 'testimony'),
+add_post_meta_box( 'Anggota', array(
+    'title' => _x( 'Data Anggota Takeshi', 'meta box', 'wa' ),
+    'pages' => array( 'Anggota' ),
     'context' => 'normal', // 'normal', 'advanced', or 'side'
-    'priority' => 'default', // 'default', 'high', 'core', 'default' or 'low'
-    'fields' => array( 
+    'priority' => 'high', // 'default', 'high', 'core', 'default' or 'low'
+    'fields' => array(
 		array(
-            'name' => _x( 'Clients Company', 'meta box', 'wa' ),
-            'id' => 'client_com',
-            'place-holder' => '',
-            'type' => 'text'
-        ) 
-    )
-	
-	
-));
-$aw_portfolio = new JW_Post_Type('Portfolio',
-	array(
-	'labels' => array(
-		'name' => __( 'Portfolio' ),
-		'singular_name' => __( 'Portfolio' )
-	),
-	'public' => true,
-	'has_archive' => true,
-	'rewrite' => array('slug' => 'portfolio'),
-	'supports' => array(
-		'title', 'editor' , 'thumbnail'
-		)
-	)
-); 
-add_post_meta_box( 'Company', array(
-    'title' => _x( 'Company', 'meta box', 'wa' ),
-    'pages' => array('portfolio' ),
-    'context' => 'normal', // 'normal', 'advanced', or 'side'
-    'priority' => 'default', // 'default', 'high', 'core', 'default' or 'low'
-    'fields' => array( 
-		array(
-            'name' => _x( 'Clients Url', 'meta box', 'wa' ),
-            'id' => 'client_link',
-            'place-holder' => '',
-			'default' => 'http://',
+            'name' => _x( 'Pekerjaan', 'meta box', 'wa' ),
+            'id' => 'kerjo',
+            'default' => 'Wiraswasta', 
             'type' => 'text'
         ),
 		array(
-            'name' => _x( 'Clients Name', 'meta box', 'wa' ),
-            'id' => 'client_names',
+            'name' => _x( 'Jabatan di Takeshi', 'meta box', 'wa' ),
+            'id' => 'menjabat', 
+			'default' => 'Anggota',
+            'type' => 'text'
+        ),
+		array(
+            'name' => _x( 'Nama Panggilan', 'meta box', 'wa' ),
+            'id' => 'julukan', 
+			'default' => '-',
+            'type' => 'text'
+        ),
+		array(
+            'name' => _x( 'Bergabung sejak', 'meta box', 'wa' ),
+            'id' => 'gabung', 
+			'default' => '01-08-2016',
+            'type' => 'date'
+        ),
+		array(
+            'name' => _x( 'Alamat', 'meta box', 'wa' ),
+            'id' => 'ngalamat', 
+			'default' => 'Slote',
+            'type' => 'text'
+        ),
+		array(
+            'name' => _x( 'Status Keanggotaan', 'meta box', 'wa' ),
+            'id' => 'status_ang', 
+			'default' => 'Verified',
+            'type' => 'text'
+        )
+    )
+));
+add_action( 'init', 'created_anggota_taxonomies', 0 );
+function created_anggota_taxonomies() {
+	$labels = array(
+		'name'              => _x( 'Gender', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Gender', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Gender' ),
+		'all_items'         => __( 'All Gender' ),
+		'parent_item'       => __( 'Parent Gender' ),
+		'parent_item_colon' => __( 'Parent Gender:' ),
+		'edit_item'         => __( 'Edit Gender' ),
+		'update_item'       => __( 'Update Gender' ),
+		'add_new_item'      => __('Gender'),
+		'new_item_name'     => __( 'New Gender Name' ),
+		'menu_name'         => __( 'Gender' ),
+	);
+
+	$args = array(
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'gender' ),
+	);
+
+	register_taxonomy( 'gender', array( 'anggota' ), $args );
+
+}
+
+$events = new JW_Post_Type('Event', array('supports' => array('title', 'thumbnail', 'editor')));
+add_post_meta_box( 'event', array(
+    'title' => _x( 'Event Takeshi', 'meta box', 'wa' ),
+    'pages' => array( 'Event' ),
+    'context' => 'normal', // 'normal', 'advanced', or 'side'
+    'priority' => 'default', // 'default', 'high', 'core', 'default' or 'low'
+    'fields' => array(
+		array(
+            'name' => _x( 'Tempat/Lokasi', 'meta box', 'wa' ),
+            'id' => 'lokasi_event',
+            'default' => '',
+			'default' => '-',
+            'type' => 'text'
+        ),
+		array(
+            'name' => _x( 'Waktu Mulai', 'meta box', 'wa' ),
+            'id' => 'event_start',
             'place-holder' => '',
-			'default' => '#',
+			'default' => '',
+            'type' => 'date'
+        ),
+		array(
+            'name' => _x( 'Event Ditutup', 'meta box', 'wa' ),
+            'id' => 'event_end',
+            'place-holder' => '',
+			'default' => '',
+            'type' => 'date'
+        )
+    )
+	
+	
+));
+
+$gallery = new JW_Post_Type('Gallery', array('supports' => array('title', 'thumbnail', 'editor')));
+add_action( 'init', 'codex_book_init' );
+/**
+ * Register a book post type.
+ *
+ * @link http://codex.wordpress.org/Function_Reference/register_post_type
+ */
+function codex_book_init() {
+	$labels = array(
+		'name'               => _x( 'Usaha', 'post type general name', 'your-plugin-textdomain' ),
+		'singular_name'      => _x( 'Usaha', 'post type singular name', 'your-plugin-textdomain' ),
+		'menu_name'          => _x( 'Bisnis', 'admin menu', 'your-plugin-textdomain' ),
+		'name_admin_bar'     => _x( 'Usaha', 'add new on admin bar', 'your-plugin-textdomain' ),
+		'add_new'            => _x( 'Add New', 'Usaha', 'your-plugin-textdomain' ),
+		'add_new_item'       => __( 'Add New Usaha', 'your-plugin-textdomain' ),
+		'new_item'           => __( 'New Usaha', 'your-plugin-textdomain' ),
+		'edit_item'          => __( 'Edit Usaha', 'your-plugin-textdomain' ),
+		'view_item'          => __( 'View Usaha', 'your-plugin-textdomain' ),
+		'all_items'          => __( 'All Usaha', 'your-plugin-textdomain' ),
+		'search_items'       => __( 'Search Usaha', 'your-plugin-textdomain' ),
+		'parent_item_colon'  => __( 'Parent Usaha:', 'your-plugin-textdomain' ),
+		'not_found'          => __( 'No Usaha found.', 'your-plugin-textdomain' ),
+		'not_found_in_trash' => __( 'No Usaha found in Trash.', 'your-plugin-textdomain' )
+	);
+
+	$args = array(
+		'labels'             => $labels,
+                'description'        => __( 'Description.', 'your-plugin-textdomain' ),
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'usaha' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'thumbnail' )
+	);
+
+	register_post_type( 'usaha', $args );
+}
+add_post_meta_box( 'bisnis_data', array(
+    'title' => _x( 'Data Bisnis', 'meta box', 'wa' ),
+    'pages' => array( 'usaha' ),
+    'context' => 'normal', // 'normal', 'advanced', or 'side'
+    'priority' => 'default', // 'default', 'high', 'core', 'default' or 'low'
+    'fields' => array(
+		array(
+            'name' => _x( 'Owner', 'meta box', 'wa' ),
+            'id' => 'boss',
+            'default' => '',
+            'type' => 'text'
+        ),
+		array(
+            'name' => _x( 'No Hp/Phone', 'meta box', 'wa' ),
+            'id' => 'kontak',
+            'place-holder' => '',
             'type' => 'text'
         ) 
     )
 	
 	
-));
-//hook into the init action and call create_game_taxonomies when it fires
-add_action( 'init', 'create_game_taxonomies', 0 );
+)); 
+add_action( 'init', 'created_gallery_taxonomies', 0 );
+function created_gallery_taxonomies() {
+	$labels = array(
+		'name'              => _x( 'Type', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Type', 'taxonomy singular name' ),
+		'search_items'      => __( 'Search Types' ),
+		'all_items'         => __( 'All Types' ),
+		'parent_item'       => __( 'Parent Types' ),
+		'parent_item_colon' => __( 'Parent Types:' ),
+		'edit_item'         => __( 'Edit Type' ),
+		'update_item'       => __( 'Update Type' ),
+		'add_new_item'      => __(Type),
+		'new_item_name'     => __( 'New Type Name' ),
+		'menu_name'         => __( 'Type' ),
+	);
 
-// // create two taxonomies, Jeniss and writers for the post type "game"
-function create_game_taxonomies() {
-	// Add new taxonomy, make it hierarchical (like categories)
+	$args = array(
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'type' ),
+	);
+
+	register_taxonomy( 'type', array( 'gallery' ), $args );
+
+}
+
+add_action( 'init', 'created_jenis_taxonomies', 0 );
+function created_jenis_taxonomies() {
 	$labels = array(
 		'name'              => _x( 'Jenis', 'taxonomy general name' ),
 		'singular_name'     => _x( 'Jenis', 'taxonomy singular name' ),
-		'search_items'      => __( 'Search Jeniss' ),
-		'all_items'         => __( 'All Jeniss' ),
+		'search_items'      => __( 'Search Jenis' ),
+		'all_items'         => __( 'All Jenis' ),
 		'parent_item'       => __( 'Parent Jenis' ),
 		'parent_item_colon' => __( 'Parent Jenis:' ),
 		'edit_item'         => __( 'Edit Jenis' ),
@@ -107,37 +254,6 @@ function create_game_taxonomies() {
 		'rewrite'           => array( 'slug' => 'jenis' ),
 	);
 
-	register_taxonomy( 'jenis', array( 'portfolio' ), $args );
+	register_taxonomy( 'jenis', array( 'usaha' ), $args );
 
-// 	// Add new taxonomy, NOT hierarchical (like tags)
-// 	$labels = array(
-// 		'name'                       => _x( 'Writers', 'taxonomy general name' ),
-// 		'singular_name'              => _x( 'Writer', 'taxonomy singular name' ),
-// 		'search_items'               => __( 'Search Writers' ),
-// 		'popular_items'              => __( 'Popular Writers' ),
-// 		'all_items'                  => __( 'All Writers' ),
-// 		'parent_item'                => null,
-// 		'parent_item_colon'          => null,
-// 		'edit_item'                  => __( 'Edit Writer' ),
-// 		'update_item'                => __( 'Update Writer' ),
-// 		'add_new_item'               => __( 'Add New Writer' ),
-// 		'new_item_name'              => __( 'New Writer Name' ),
-// 		'separate_items_with_commas' => __( 'Separate writers with commas' ),
-// 		'add_or_remove_items'        => __( 'Add or remove writers' ),
-// 		'choose_from_most_used'      => __( 'Choose from the most used writers' ),
-// 		'not_found'                  => __( 'No writers found.' ),
-// 		'menu_name'                  => __( 'Writers' ),
-// 	);
-
-// 	$args = array(
-// 		'hierarchical'          => false,
-// 		'labels'                => $labels,
-// 		'show_ui'               => true,
-// 		'show_admin_column'     => true,
-// 		'update_count_callback' => '_update_post_term_count',
-// 		'query_var'             => true,
-// 		'rewrite'               => array( 'slug' => 'writer' ),
-// 	);
-
-// 	register_taxonomy( 'writer', 'game', $args );
 }

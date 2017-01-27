@@ -168,5 +168,35 @@
 			</div>
 		</div>
 	</div>
+	<div class="clearfix comments-area">
+	<h3>Related Search</h3>
+		<div class="item-search">
+	<a href="https://www.google.com/search?q=<?php the_permalink();?>+AriWarna&ie=utf-8&oe=utf-8">Mencari <?php the_title();?></a>
+	<a href="https://www.google.com/search?q=<?php if(get_post_meta($post->ID, 'mtb_related_search1')):echo get_post_meta($post->ID, 'mtb_related_search1', true);else : echo 'cara mudah ', get_the_title(); endif;?>+AriWarna&ie=utf-8&oe=utf-8">
+		<?php if(get_post_meta($post->ID, 'mtb_related_search1')):echo get_post_meta($post->ID, 'mtb_related_search1', true);else : echo 'cara mudah ', get_the_title(); endif;?>
+	</a>
+	<a href="https://www.google.com/search?q=<?php if(get_post_meta($post->ID, 'mtb_related_search2')):echo get_post_meta($post->ID, 'mtb_related_search2', true);else : echo 'Artikel ', get_the_title(); endif;?>+AriWarna&ie=utf-8&oe=utf-8">
+		<?php if(get_post_meta($post->ID, 'mtb_related_search2')):echo get_post_meta($post->ID, 'mtb_related_search2', true);else : echo 'Artikel ', get_the_title(); endif;?>
+	</a>
+	<a href="https://www.google.com/search?q=<?php if(get_post_meta($post->ID, 'mtb_related_search3')):echo get_post_meta($post->ID, 'mtb_related_search3', true);else : echo 'Cara Buat ', get_the_title(); endif;?>+AriWarna&ie=utf-8&oe=utf-8">
+		<?php if(get_post_meta($post->ID, 'mtb_related_search3')):echo get_post_meta($post->ID, 'mtb_related_search3', true);else : echo 'Cara buat ', get_the_title(); endif;?>
+	</a>
+	<a href="https://www.google.com/search?q=<?php if(get_post_meta($post->ID, 'mtb_related_search4')):echo get_post_meta($post->ID, 'mtb_related_search4', true);else : echo 'Cara Mudah ', get_the_title(); endif;?>+AriWarna&ie=utf-8&oe=utf-8">
+		<?php if(get_post_meta($post->ID, 'mtb_related_search4')):echo get_post_meta($post->ID, 'mtb_related_search4', true);else : echo 'Cara Medah ', get_the_title(); endif;?>
+	</a>
+	<a href="https://www.google.com/search?q=<?php if(get_post_meta($post->ID, 'mtb_related_search5')):echo get_post_meta($post->ID, 'mtb_related_search5', true);else : echo 'Cara Mudah Membuat ', get_the_title(); endif;?>+AriWarna&ie=utf-8&oe=utf-8">
+		<?php if(get_post_meta($post->ID, 'mtb_related_search5')):echo get_post_meta($post->ID, 'mtb_related_search5', true);else : echo 'Cara Mudah Membuat ', get_the_title(); endif;?>
+	</a>
+	<a href="https://www.google.com/search?q=<?php if(get_post_meta($post->ID, 'mtb_related_search6')):echo get_post_meta($post->ID, 'mtb_related_search6', true);else : echo 'Tentang ', get_the_title(); endif;?>+AriWarna&ie=utf-8&oe=utf-8">
+		<?php if(get_post_meta($post->ID, 'mtb_related_search6')):echo get_post_meta($post->ID, 'mtb_related_search6', true);else : echo 'Tentang ', get_the_title(); endif;?>
+	</a>
+	<a href="https://www.google.com/search?q=<?php if(get_post_meta($post->ID, 'mtb_related_search7')):echo get_post_meta($post->ID, 'mtb_related_search7', true);else : echo 'Download Gratis ', get_the_title(); endif;?>+AriWarna&ie=utf-8&oe=utf-8">
+		<?php if(get_post_meta($post->ID, 'mtb_related_search7')):echo get_post_meta($post->ID, 'mtb_related_search7', true);else : echo 'Download Gratis ', get_the_title(); endif;?>
+	</a>
+	<a href="https://www.google.com/search?q=<?php if(get_post_meta($post->ID, 'mtb_related_search8')):echo get_post_meta($post->ID, 'mtb_related_search8', true);else : echo 'Cara Buat ', get_the_title(); endif;?>+AriWarna&ie=utf-8&oe=utf-8">
+		<?php if(get_post_meta($post->ID, 'mtb_related_search8')):echo get_post_meta($post->ID, 'mtb_related_search8', true);else : echo 'Free Download ', get_the_title(); endif;?>
+	</a>
+</div>
+	</div>
   </article>
 <?php endwhile; ?>
