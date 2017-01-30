@@ -13,7 +13,7 @@
   <?php get_template_part('templates/content', get_post_format()); ?>
 <?php endwhile; ?>
 <?php }?>
-<?php if (function_exists("pagination")) {
+<?php if (function_exists("pagination")&&!is_post_type_archive('portfolio')) {
 	echo '<nav class="post-nav">';
 		pagination($additional_loop->max_num_pages);
 	echo '</nav>';

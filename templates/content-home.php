@@ -92,7 +92,7 @@
 	<h1 class="text-center">Portfolio</h1>
 </div>
 <div class="col-sm-8 col-sm-offset-2">
-	<p class="text-center">here are some projects that have been completed by Aw codex <br /></p>
+	<p class="mukadim-text text-center">here are some projects that have been completed by Aw codex <br /></p>
 </div>
 	<div class="clearfix"></div>
 <div class="clearfix">
@@ -140,7 +140,7 @@
 	<h1 class="text-center">Clients Say</h1>
 </div>
 <div class="col-sm-8 col-sm-offset-2">
-	<p class="text-center">They are who have cooperated with awcodex says<br /></p>
+	<p class="mukadim-text text-center">They are who have cooperated with awcodex says<br /></p>
 </div>
 	<div class="clearfix"></div>
 <div class="clearfix">
@@ -186,7 +186,7 @@
 	<h1 class="text-center">From The Blog</h1>
 </div>
 <div class="col-sm-8 col-sm-offset-2">
-	<p class="text-center">You can riding our artikel in this website, <br />
+	<p class="mukadim-text text-center">You can riding our artikel in this website, <br />
 	<i>
 	<?php
 		$count_posts = wp_count_posts();
@@ -244,7 +244,7 @@
 	<h1 class="text-center">They Are Brothers</h1>
 </div>
 <div class="col-sm-8 col-sm-offset-2">
-	<p class="text-center">and they are satisfied with the results.<br /></p>
+	<p class="mukadim-text text-center">and they are satisfied with the results.<br /></p>
 </div>
 	<div class="clearfix"></div>
 <div class="clearfix">
